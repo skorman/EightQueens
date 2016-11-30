@@ -20,7 +20,7 @@ public class EightQueens {
 		}
 		
 		int[][] num = {
-				{217, 0},
+				{2, 0},
 				{6, 1},
 				{5, 2}, 
 				{4, 3},
@@ -62,7 +62,13 @@ public class EightQueens {
 																for(int eigth = 0; eigth < 8; eigth++){
 																	if(!temp.contains((Integer) eigth)){
 																		temp.add((Integer) eigth);
-																
+																		
+																		queenPositions = new int[8][2];
+																		
+																		for (int i = 0; i < 8; i++){
+																			queenPositions[i][1] = i;
+																		}
+																		
 																		queenPositions[0][0] = first;
 																		queenPositions[1][0] = second;
 																		queenPositions[2][0] = third;
@@ -76,11 +82,11 @@ public class EightQueens {
 																			//print(queenPositions);
 																			//System.out.println("temp: " + temp);
 																			//System.out.println();
-																			things.add(queenPositions);
+																			//solutions.add(copyArray(queenPositions));
 																			//print(solutions.get(solutions.size() - 1));
 																			//System.out.println();
 																			//System.out.println(solutions.size());
-																			drawSolution(queenPositions);
+																			//drawSolution(queenPositions);
 																		}
 																		
 																		temp.remove(temp.size() - 1);
@@ -107,13 +113,18 @@ public class EightQueens {
 				temp.remove(temp.size() - 1);
 			}
 		}
-		things.add(num);
+		//things.add(num);
 				
-		for(int i = 0; i < things.size(); i++){
-			print(things.get(i));
+		for(int i = 0; i < solutions.size(); i++){
+			print(solutions.get(i));
+			System.out.println();
+			drawSolution(solutions.get(i));
 		}
 		//print(solutions.get(1));
-		//drawSolution(num);
+		drawSolution(num);
+		drawSolution(createReflectionAcrossYAxis(num));
+		drawSolution(createReflectionAcrossXAxis(num));
+
 	}
 	public void print(int[][] nums){
 		for(int i = 0; i < nums.length; i++)
@@ -171,7 +182,43 @@ public class EightQueens {
 			pen.drawCircle(3 * scale);
 		}
 	}
+	
+	private int[][] copyArray(int[][] arrayToCopy){
+		int[][] newArray = arrayToCopy.clone();
+		return newArray;
+	}
+	
+	private int[][] createReflectionAcrossXAxis(int[][] array){
+		int[][] newArray = new int[8][2];
+		for(int i = 0; i < array.length; i++){
+			double xDistance = 3.5 - array[i][0];
+			double yDistance = 3.5 - array[i][1];
+			double newX = xDistance + 3.5;
+			double newY = yDistance + 3.5;
+			newArray[i][0] = (int) array[i][0];
+			newArray[i][1] = (int) newY;
+		}
+		return newArray;
+	}
+	
+	private int[][] createReflectionAcrossYAxis(int[][] array){
+		int[][] newArray = new int[8][2];
+		for(int i = 0; i < array.length; i++){
+			double xDistance = 3.5 - array[i][0];
+			double yDistance = 3.5 - array[i][1];
+			double newX = xDistance + 3.5;
+			double newY = yDistance + 3.5;
+			newArray[i][0] = (int) newX;
+			newArray[i][1] = (int) array[i][1];
+		}
+		return newArray;
+	}
+	
+	private void createRotation(int[][] array){
+		
+	}
 }
+
 
 
 
